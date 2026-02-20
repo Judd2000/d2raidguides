@@ -1,6 +1,60 @@
 <div class="flex flex-col items-center space-y-2 text-xs">
-  <mat-form-field class="w-3/4">
-    <input [(ngModel)]="search" type="text" matInput />
-    <mat-icon class="scale-75" matPrefix>search</mat-icon>
-  </mat-form-field>
+  <div class="flex flex-row w-full mt-2 items-center">
+    <div class="flex flex-col text-xs">
+      <mat-checkbox class="scale-75" [(ngModel)]="includeDungeons">Dungeons</mat-checkbox>
+      <mat-checkbox class="scale-75" [(ngModel)]="includeRaids">Raids</mat-checkbox>
+    </div>
+    <mat-form-field class="w-2/3 mt-4">
+      <input [(ngModel)]="search" type="text" matInput />
+      <mat-icon class="scale-75" matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  @for (rd of filteredItems(); track $index) {
+    <div class="w-full">
+      <mat-card class="justify-center">
+        <mat-card-header>
+          <mat-icon class="scale-75"
+                    (click)="rd.isExpanded = !rd.isExpanded" prefix>{{rd.isExpanded ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
+          <mat-card-content>
+            <span class="text-sm">{{rd.name}}</span>
+          </mat-card-content>
+        </mat-card-header>
+      </mat-card>
+
+      @if (rd.isExpanded) {
+        <div class="flex flex-col space-y-4 mt-4">
+          @for (enc of rd.encounters; track enc.encounterName) {
+            <mat-card>
+              <mat-card-header>
+                <mat-icon class="scale-50">subdirectory_arrow_right</mat-icon>
+                <mat-card-content>
+                  <span class="text-sm my-4">{{enc.encounterName}}</span>
+                </mat-card-content>
+              </mat-card-header>
+            </mat-card>
+          }
+        </div>
+      }
+      @if (!rd.isExpanded && rd.searchEncounters && rd.encounters.length !== rd.searchEncounters.length) {
+        <div class="flex flex-col space-y-4 mt-4">
+          @for (enc of rd.searchEncounters; track enc.encounterName) {
+            <mat-card>
+              <mat-card-header class="mr-10">
+                <mat-icon class="scale-50">subdirectory_arrow_right</mat-icon>
+                <mat-card-content>
+                  <span class="text-sm my-4">{{enc.encounterName}}</span>
+                </mat-card-content>
+              </mat-card-header>
+            </mat-card>
+          }
+        </div>
+      }
+
+
+    </div>
+  } @empty {
+    <span>No results</span>
+  }
+
 </div>
