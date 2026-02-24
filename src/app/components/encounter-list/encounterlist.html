@@ -1,0 +1,10 @@
+<div class="flex flex-col border-l-4 {{borderClass}} space-y-2 pt-2">
+  @for (enc of encounters; track enc.encounterName) {
+    <mat-card>
+      <div class="h-fit ml-6 pt-2 grid grid-cols-5 items-center">
+        <span class="text-xs active:text-blue-600 active:underline col-span-3">{{enc.encounterName}}</span>
+        <img src="{{enc.imgUrl}}" class="w-10 rounded-full m-2" alt="{{enc.encounterName}}" fill/>
+      </div>
+    </mat-card>
+  }
+</div>

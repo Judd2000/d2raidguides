@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { dungeons, Encounter, Raid_Dungeon, raids } from '../../raid-models/raid-models';
 import { MatCardModule } from '@angular/material/card';
+import { Encounterlist } from '../encounter-list/encounterlist';
+import { UsedAssets } from '../used-assets/used-assets.component';
 
 @Component({
   selector: 'app-raid-enc-search',
@@ -15,7 +17,9 @@ import { MatCardModule } from '@angular/material/card';
     MatFormField,
     FormsModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    Encounterlist,
+    UsedAssets,
   ],
   templateUrl: './raid-enc-search.html',
   styleUrl: './raid-enc-search.css',
@@ -27,18 +31,19 @@ export class RaidEncSearch {
 
   includeDungeons = signal<boolean>(true);
 
+  getBorderClass(rd: Raid_Dungeon) {
+    return `border-${rd.colorName}`;
+  }
+
   filteredItems: Signal<Raid_Dungeon[]> = computed(() => {
     const curSearch = this.search().toLowerCase();
-
-    console.log(`In filteredItems. Search: ${curSearch}, ${this.includeDungeons()}, ${this.includeRaids()} `);
 
     const searchArr: Raid_Dungeon[] = [
       ...(this.includeRaids() ? raids : []),
       ...(this.includeDungeons() ? dungeons : [])
     ];
 
-    // if we match a raid or dungeon, display as a collapsed view. If we match a dungeon, display the dungeon as
-    // an expanded child of it's raid or dungeon
+
     return searchArr.flatMap((rd: Raid_Dungeon) => {
       let match = false;
       const res: Raid_Dungeon = { ...rd };

@@ -7,6 +7,7 @@ export interface Raid_Dungeon {
   encounters: Encounter[];
   searchEncounters?: Encounter[];
   isExpanded?: boolean;
+  colorName: string;
 }
 
 export interface Encounter {
@@ -21,36 +22,37 @@ export const raids: Raid_Dungeon[] = [
     name: "Last Wish",
     expansion: "Forsaken",
     path: "last_wish",
-    imgUrl: "",
+    imgUrl: "/raids/last_wish/last_wish_icon.jpeg",
+    colorName: "teal-400",
     encounters: [
       {
         encounterName: "Kalli, the Corrupted",
-        imgUrl: "",
+        imgUrl: "/raids/last_wish/kalli.jpg",
         path: "kalli"
       },
       {
         encounterName: "Shuro Chi, the Corrupted",
-        imgUrl: "",
+        imgUrl: "/raids/last_wish/shuro_chi.jpg",
         path: "shuro_chi"
       },
       {
         encounterName: "Morgeth, The Spirekeeper",
-        imgUrl: "",
+        imgUrl: "/raids/last_wish/morgeth.jpg",
         path: "morgeth"
       },
       {
         encounterName: "The Vault",
-        imgUrl: "",
+        imgUrl: "/raids/last_wish/vault.jpg",
         path: "vault"
       },
       {
         encounterName: "Riven of a Thousand Voices",
-        imgUrl: "",
+        imgUrl: "/raids/last_wish/riven.jpg",
         path: "riven"
       },
       {
         encounterName: "Queenswalk",
-        imgUrl: "",
+        imgUrl: "/raids/last_wish/queenswalk.jpg",
         path: "queenswalk"
       }
     ]
@@ -59,27 +61,28 @@ export const raids: Raid_Dungeon[] = [
     id: 1,
     name: "Garden of Salvation",
     expansion: "Shadowkeep",
-    imgUrl: "",
+    imgUrl: "/raids/garden_of_salvation/garden_of_salvation.jpg",
     path: "garden_of_salvation",
+    colorName: "green-600",
     encounters: [
       {
         encounterName: "Evade The Consecrated Mind",
-        imgUrl: "",
+        imgUrl: "/raids/garden_of_salvation/evade_consecrated.jpg",
         path: "evade_consecrated_mind"
       },
       {
         encounterName: "Summon The Consecrated Mind",
-        imgUrl: "",
+        imgUrl: "/raids/garden_of_salvation/summon_consecrated.jpg",
         path: "summon_consecrated_mind"
       },
       {
         encounterName: "Defeat The Consecrated Mind",
-        imgUrl: "",
+        imgUrl: "/raids/garden_of_salvation/defeat_consecrated.jpg",
         path: "defeat_consecrated_mind"
       },
       {
         encounterName: "Sanctified Mind",
-        imgUrl: "",
+        imgUrl: "/raids/garden_of_salvation/sanctified.jpg",
         path: "sanctified_mind"
       }
     ]
@@ -89,36 +92,37 @@ export const raids: Raid_Dungeon[] = [
     name: "Deep Stone Crypt",
     expansion: "Beyond Light",
     path: "deep_stone_crypt",
-    imgUrl: "",
+    imgUrl: "/raids/dsc/dsc.jpg",
+    colorName: "black",
     encounters: [
       {
         encounterName: "Surviving the Blizzard",
-        imgUrl: "",
+        imgUrl: "/raids/dsc/blizzard.jpg",
         path: "blizzard"
       },
       {
         encounterName: "Crypt Security",
-        imgUrl: "",
+        imgUrl: "/raids/dsc/crypt_security.jpg",
         path: "crypt_security"
       },
       {
         encounterName: "Atraks-1, Fallen Exo",
-        imgUrl: "",
+        imgUrl: "/raids/dsc/atraks.jpg",
         path: "atraks"
       },
       {
         encounterName: "Orbital Space Walk",
-        imgUrl: "",
+        imgUrl: "/raids/dsc/spacewalk.jpg",
         path: "space_walk"
       },
       {
         encounterName: "Descent",
-        imgUrl: "",
+        imgUrl: "/raids/dsc/descent.jpg",
         path: "descent"
       },
       {
         encounterName: "Taniks, The Abomination",
-        imgUrl: "",
+        imgUrl: "/raids/dsc/taniks.jpg",
         path: "taniks"
       }
     ]
@@ -128,36 +132,37 @@ export const raids: Raid_Dungeon[] = [
     name: "Vault of Glass",
     expansion: "Beyond Light",
     path: "vog",
-    imgUrl: "",
+    imgUrl: "/raids/vog/vog.jpg",
+    colorName: "amber-500",
     encounters: [
       {
         encounterName: "Waking Ruins (Spire)",
-        imgUrl: "",
+        imgUrl: "/raids/vog/waking_ruins.jpg",
         path: "spire"
       },
       {
         encounterName: "The Trial of Kabr (Confluxes)",
-        imgUrl: "",
+        imgUrl: "/raids/vog/confluxes.jpg",
         path: "confluxes"
       },
       {
         encounterName: "The Templar",
-        imgUrl: "",
+        imgUrl: "/raids/vog/templar.jpg",
         path: "templar"
       },
       {
         encounterName: "The Gorgon's Labyrinth",
-        imgUrl: "",
+        imgUrl: "/raids/vog/gorgons.jpg",
         path: "gorgons"
       },
       {
         encounterName: "Awaken The Glass Throne (Gatekeepers)",
-        imgUrl: "",
+        imgUrl: "/raids/vog/gatekeepers.jpg",
         path: "gatekeepers"
       },
       {
         encounterName: "Atheon, Time's Conflux",
-        imgUrl: "",
+        imgUrl: "/raids/vog/atheon.jpg",
         path: "atheon"
       }
     ]
@@ -167,31 +172,32 @@ export const raids: Raid_Dungeon[] = [
     name: "Vow of the Disciple",
     expansion: "The Witch Queen",
     path: "vow",
-    imgUrl: "",
+    imgUrl: "/raids/vow/vow.jpg",
+    colorName: "gray-600",
     encounters: [
       {
         encounterName: "Disciple's Bog",
-        imgUrl: "",
+        imgUrl: "/raids/vow/bog.jpg",
         path: "bog"
       },
       {
         encounterName: "Acquisition",
-        imgUrl: "",
+        imgUrl: "/raids/vow/acquisition.jpg",
         path: "acquisition"
       },
       {
         encounterName: "The Caretaker",
-        imgUrl: "",
+        imgUrl: "/raids/vow/caretaker.jpg",
         path: "caretaker"
       },
       {
         encounterName: "Exhibition",
-        imgUrl: "",
+        imgUrl: "/raids/vow/exhibition.jpg",
         path: "exhibition"
       },
       {
         encounterName: "Rhulk, Disciple of the Witness",
-        imgUrl: "",
+        imgUrl: "/raids/vow/rhulk.jpg",
         path: "rhulk"
       },
     ]
@@ -201,41 +207,42 @@ export const raids: Raid_Dungeon[] = [
     name: "King's Fall",
     expansion: "The Witch Queen",
     path: "kings_fall",
-    imgUrl: "",
+    imgUrl: "/raids/kings_fall/kings_fall.jpg",
+    colorName: "yellow-400",
     encounters: [
       {
         encounterName: "Hall of Souls",
-        imgUrl: "",
+        imgUrl: "/raids/kings_fall/hall_of_souls.jpg",
         path: "hall_of_souls"
       },
       {
         encounterName: "The Crux and Portico",
-        imgUrl: "",
+        imgUrl: "/raids/kings_fall/portico.jpg",
         path: "crux_portico"
       },
       {
         encounterName: "Basilica (Totems)",
-        imgUrl: "",
+        imgUrl: "/raids/kings_fall/totems.png",
         path: "totems"
       },
       {
         encounterName: "The Warpriest",
-        imgUrl: "",
+        imgUrl: "/raids/kings_fall/warpriest.jpg",
         path: "warpriest"
       },
       {
         encounterName: "Golgoroth's Cellar",
-        imgUrl: "",
+        imgUrl: "/raids/kings_fall/golgoroth.jpg",
         path: "golgoroth"
       },
       {
         encounterName: "Daughters of Oryx",
-        imgUrl: "",
+        imgUrl: "/raids/kings_fall/daughters.jpg",
         path: "daughters"
       },
       {
         encounterName: "Oryx, The Taken King",
-        imgUrl: "",
+        imgUrl: "/raids/kings_fall/oryx.jpg",
         path: "oryx"
       }
     ]
@@ -245,27 +252,28 @@ export const raids: Raid_Dungeon[] = [
     name: "Root of Nightmares",
     expansion: "Lightfall",
     path: "ron",
-    imgUrl: "",
+    imgUrl: "/raids/ron/ron.png",
+    colorName: "blue-300",
     encounters: [
       {
         encounterName: "Cataclysm",
         path: "cataclysm",
-        imgUrl: ""
+        imgUrl: "/raids/ron/cataclysm.jpg",
       },
       {
         encounterName: "Scission",
         path: "scission",
-        imgUrl: ""
+        imgUrl: "/raids/ron/scission.jpg",
       },
       {
         encounterName: "Macrocosm (Explicator of Planets)",
         path: "planets",
-        imgUrl: ""
+        imgUrl: "/raids/ron/planets.jpg"
       },
       {
         encounterName: "Nezarec, Final God of Pain",
         path: "nezarec",
-        imgUrl: ""
+        imgUrl: "/raids/ron/nezarec.jpg"
       },
     ]
   },
@@ -274,27 +282,28 @@ export const raids: Raid_Dungeon[] = [
     name: "Crota's End",
     expansion: "Lightfall",
     path: "crotas_end",
-    imgUrl: "",
+    imgUrl: "/raids/crotas_end/crotas_end.jpg",
+    colorName: "green-900",
     encounters: [
       {
         encounterName: "The Abyss",
         path: "abyss",
-        imgUrl: ""
+        imgUrl: "/raids/crotas_end/abyss.jpg",
       },
       {
         encounterName: "Cross the Bridge",
         path: "bridge",
-        imgUrl: ""
+        imgUrl: "/raids/crotas_end/bridge.jpg",
       },
       {
         encounterName: "Ir Yut, the Deathsinger",
         path: "ir_yut",
-        imgUrl: ""
+        imgUrl: "/raids/crotas_end/ir_yut.jpg",
       },
       {
         encounterName: "Crota, Son of Oryx",
         path: "crota",
-        imgUrl: ""
+        imgUrl: "/raids/crotas_end/crota.jpg",
       },
     ]
   },
@@ -303,32 +312,33 @@ export const raids: Raid_Dungeon[] = [
     name: "Salvation's Edge ",
     expansion: "The Final Shape",
     path: "salvations_edge",
-    imgUrl: "",
+    imgUrl: "/raids/se/salvations_edge.jpg",
+    colorName: "orange-900",
     encounters: [
       {
         encounterName: "Substratum",
         path: "substratum",
-        imgUrl: ""
+        imgUrl: "/raids/se/substratum.jpg",
       },
       {
         encounterName: "Herald of Finality",
         path: "herald",
-        imgUrl: ""
+        imgUrl: "/raids/se/herald.jpg"
       },
       {
         encounterName: "Repository",
         path: "repository",
-        imgUrl: ""
+        imgUrl: "/raids/se/repository.jpg"
       },
       {
         encounterName: "Verity",
         path: "verity",
-        imgUrl: ""
+        imgUrl: "/raids/se/verity.jpg"
       },
       {
         encounterName: "The Witness",
         path: "witness",
-        imgUrl: ""
+        imgUrl: "/raids/se/witness.jpg"
       },
     ]
   },
@@ -337,27 +347,28 @@ export const raids: Raid_Dungeon[] = [
     name: "The Desert Perpetual",
     expansion: "Edge of Fate",
     path: "dp",
-    imgUrl: "",
+    imgUrl: "/raids/dp/dp.jpg",
+    colorName: "amber-200",
     encounters: [
       {
         encounterName: "Epoptes, Lord of Quanta (Hydra)",
         path: "hydra",
-        imgUrl: ""
+        imgUrl: "/raids/dp/hydra.jpg"
       },
       {
         encounterName: "Agraios, Inherent (Hobgoblin)",
         path: "hobgoblin",
-        imgUrl: ""
+        imgUrl: "/raids/dp/hobgoblin.jpg"
       },
       {
-        encounterName: "Iatros, Inward-Turned",
+        encounterName: "Iatros, Inward-Turned (Wyvern)",
         path: "wyvern",
-        imgUrl: ""
+        imgUrl: "/raids/dp/wyvern.jpg"
       },
       {
         encounterName: "Koregos, The Worldline",
         path: "koregos",
-        imgUrl: ""
+        imgUrl: "/raids/dp/koregos.jpg"
       },
     ]
   },
@@ -366,27 +377,28 @@ export const raids: Raid_Dungeon[] = [
     name: "The Desert Perpetual (Epic)",
     expansion: "Edge of Fate",
     path: "edp",
-    imgUrl: "",
+    imgUrl: "/raids/dp/edp.jpg",
+    colorName: "border-slate-400",
     encounters: [
       {
         encounterName: "Epoptes, Lord of Quanta (Hydra)",
         path: "hydra",
-        imgUrl: ""
+        imgUrl: "/raids/dp/hydra.jpg"
       },
       {
         encounterName: "Agraios, Inherent (Hobgoblin)",
         path: "hobgoblin",
-        imgUrl: ""
+        imgUrl: "/raids/dp/hobgoblin.jpg"
       },
       {
-        encounterName: "Iatros, Inward-Turned",
+        encounterName: "Iatros, Inward-Turned (Wyvern)",
         path: "wyvern",
-        imgUrl: ""
+        imgUrl: "/raids/dp/wyvern.jpg"
       },
       {
         encounterName: "Koregos, Fractured in Time",
-        path: "koregos-f",
-        imgUrl: ""
+        path: "koregos_f",
+        imgUrl: "/raids/dp/koregos_f.jpg"
       },
     ]
   }
@@ -398,22 +410,23 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Shattered Throne",
     expansion: "Forsaken",
     path: "shattered_throne",
-    imgUrl: "",
+    imgUrl: "/dungeons/shattered_throne/shattered_throne.jpg",
+    colorName: "black",
     encounters: [
       {
         encounterName: "Erebus",
         path: "erebus",
-        imgUrl: ""
+        imgUrl: "/dungeons/shattered_throne/erebus.jpg"
       },
       {
         encounterName: "Vorgeth, the Boundless Hunger",
         path: "vorgeth",
-        imgUrl: ""
+        imgUrl: "/dungeons/shattered_throne/vorgeth.jpg"
       },
       {
         encounterName: "Dul Incaru, The Eternal Return",
         path: "dul_incaru",
-        imgUrl: ""
+        imgUrl: "/dungeons/shattered_throne/dul_incaru.jpg"
       },
     ]
   },
@@ -422,27 +435,28 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Pit of Heresy",
     expansion: "Shadowkeep",
     path: "pit_of_heresy",
-    imgUrl: "",
+    imgUrl: "/dungeons/pit/pit.jpg",
+    colorName: "red-800",
     encounters: [
       {
         encounterName: "Necropolis",
         path: "necropolis",
-        imgUrl: ""
+        imgUrl: "/dungeons/pit/necropolis.jpeg"
       },
       {
         encounterName: "Tunnels of Despair",
         path: "tunnels_of_despair",
-        imgUrl: ""
+        imgUrl: "/dungeons/pit/tunnels.png"
       },
       {
         encounterName: "Chamber of Suffering",
         path: "chamber_of_suffering",
-        imgUrl: ""
+        imgUrl: "/dungeons/pit/chamber.jpg"
       },
       {
-        encounterName: "Harrow",
-        path: "harrow",
-        imgUrl: ""
+        encounterName: "Zulmak, Instrument of Torment (Harrow)",
+        path: "zulmak",
+        imgUrl: "/dungeons/pit/zulmak.jpg"
       },
     ]
   },
@@ -451,31 +465,32 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Prophecy",
     expansion: "Shadowkeep",
     path: "prophecy",
-    imgUrl: "",
+    imgUrl: "/dungeons/prophecy/prophecy.jpg",
+    colorName: "cyan-300",
     encounters: [
       {
         encounterName: "Phalanx Echo",
-        imgUrl: "",
+        imgUrl: "/dungeons/prophecy/phalanx.jpg",
         path: "phalanx_echo"
       },
       {
         encounterName: "Wasteland",
-        imgUrl: "",
+        imgUrl: "/dungeons/prophecy/wastelands.jpg",
         path: "wasteland"
       },
       {
         encounterName: "The Hexahedron",
-        imgUrl: "",
+        imgUrl: "/dungeons/prophecy/prophecy.jpg",
         path: "hexahedron"
       },
       {
         encounterName: "Singularity",
-        imgUrl: "",
+        imgUrl: "/dungeons/prophecy/singularity.jpg",
         path: "singularity"
       },
       {
         encounterName: "Kell Echo",
-        imgUrl: "",
+        imgUrl: "/dungeons/prophecy/kell_echo.jpg",
         path: "kell_echo"
       },
     ]
@@ -485,37 +500,38 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Grasp of Avarice",
     expansion: "Bungie 30th Anniversary",
     path: "grasp_of_avarice",
-    imgUrl: "",
+    imgUrl: "/dungeons/grasp/grasp.jpg",
+    colorName: "purple-700",
     encounters: [
       {
         encounterName: "Skywatch",
         path: "skywatch",
-        imgUrl: ""
+        imgUrl: "/dungeons/grasp/skywatch.jpg"
       },
       {
         encounterName: "Rusted Gangplank",
         path: "rusted_gangplank",
-        imgUrl: ""
+        imgUrl: "/dungeons/grasp/gangplank.jpg"
       },
       {
-        encounterName: "Phry'zhia The Insatiable",
+        encounterName: "Phry'zhia The Insatiable (Ogre)",
         path: "ogre",
-        imgUrl: ""
+        imgUrl: "/dungeons/grasp/phryzhia.jpg"
       },
       {
         encounterName: "Sparrow Race",
         path: "sparrow_race",
-        imgUrl: ""
+        imgUrl: "/dungeons/grasp/sparrow.jpg"
       },
       {
         encounterName: "Fallen Shield",
         path: "fallen_shield",
-        imgUrl: ""
+        imgUrl: "/dungeons/grasp/fallen_shield.jpg"
       },
       {
         encounterName: "Captain Avarokk, The Covetous",
         path: "avarokk",
-        imgUrl: ""
+        imgUrl: "/dungeons/grasp/captain_avarokk.jpg"
       },
     ]
   },
@@ -524,22 +540,23 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Duality",
     expansion: "The Witch Queen",
     path: "duality",
-    imgUrl: "",
+    imgUrl: "/dungeons/duality/duality.jpg",
+    colorName: "red-600",
     encounters: [
       {
         encounterName: "The Nightmare of Gahlran, Sorrow Bearer",
         path: "gahlran",
-        imgUrl: ""
+        imgUrl: "/dungeons/duality/gahlran.jpeg"
       },
       {
         encounterName: "Unlock the Vault",
         path: "vault",
-        imgUrl: ""
+        imgUrl: "/dungeons/duality/unlock_vault.jpg"
       },
       {
         encounterName: "Nightmare of Caiatl",
         path: "caiatl",
-        imgUrl: ""
+        imgUrl: "/dungeons/duality/caiatl.jpg"
       },
     ]
   },
@@ -548,32 +565,33 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Spire of the Watcher",
     expansion: "The Witch Queen",
     path: "spire_of_the_watcher",
-    imgUrl: "",
+    imgUrl: "/dungeons/spire/spire.jpg",
+    colorName: "amber-950",
     encounters: [
       {
         encounterName: "Reestablish Power",
         path: "reestablish_power",
-        imgUrl: ""
+        imgUrl: "/dungeons/spire/reestablish_power.jpg"
       },
       {
         encounterName: "Ascend the Spire",
         path: "ascend_spire",
-        imgUrl: ""
+        imgUrl: "/dungeons/spire/ascend_spire.jpg"
       },
       {
         encounterName: "Akelous, the Siren's Current",
         path: "akelous",
-        imgUrl: ""
+        imgUrl: "/dungeons/spire/akelous.jpg"
       },
       {
         encounterName: "Descend",
         path: "descend",
-        imgUrl: ""
+        imgUrl: "/dungeons/spire/descend.jpg"
       },
       {
         encounterName: "Persys, Primordial Ruin",
         path: "persys",
-        imgUrl: ""
+        imgUrl: "/dungeons/spire/persys.jpg"
       },
     ]
   },
@@ -582,27 +600,28 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Ghosts of the Deep",
     expansion: "Lightfall",
     path: "ghosts_of_the_deep",
-    imgUrl: "",
+    imgUrl: "/dungeons/gotd/gotd.jpg",
+    colorName: "sky-600",
     encounters: [
       {
         encounterName: "Hive Ritual",
         path: "hive_ritual",
-        imgUrl: ""
+        imgUrl: "/dungeons/gotd/hive_ritual.jpg"
       },
       {
         encounterName: "Deep Methane",
         path: "deep_methane",
-        imgUrl: ""
+        imgUrl: "/dungeons/gotd/deep_methane.jpg"
       },
       {
         encounterName: "Ecthar, the Shield of Savathun",
         path: "ecthar",
-        imgUrl: ""
+        imgUrl: "/dungeons/gotd/ecthar.jpg"
       },
       {
         encounterName: "Simmumah ur-Nokru, Lucent Necromancer",
         path: "simmumah",
-        imgUrl: ""
+        imgUrl: "/dungeons/gotd/simmumah.jpg"
       },
     ]
   },
@@ -610,33 +629,34 @@ export const dungeons: Raid_Dungeon[] = [
     id: 7,
     name: "Warlord's Ruin",
     expansion: "",
-    path: "",
-    imgUrl: "",
+    path: "warlords_ruin",
+    imgUrl: "/dungeons/warlords/warlords.jpg",
+    colorName: "zinc-950",
     encounters: [
       {
         encounterName: "Rathil, First Broken Knight of Fikrul",
         path: "ratil",
-        imgUrl: ""
+        imgUrl: "/dungeons/warlords/rathil.png"
       },
       {
         encounterName: "Imprisoned",
         path: "imprisoned",
-        imgUrl: ""
+        imgUrl: "/dungeons/warlords/imprisoned.jpg"
       },
       {
         encounterName: "Wailing Tempest (Locus of Wailing Grief)",
         path: "wailing_tempest",
-        imgUrl: ""
+        imgUrl: "/dungeons/warlords/locus.jpg"
       },
       {
         encounterName: "Vengeful Peak",
         path: "vengeful_peak",
-        imgUrl: ""
+        imgUrl: "/dungeons/warlords/vengeful_peak.jpg"
       },
       {
         encounterName: "Hefnd's Vengeance, Blighted Chimera",
         path: "hefnds_vengeance",
-        imgUrl: ""
+        imgUrl: "/dungeons/warlords/hefnd.jpg"
       },
     ]
   },
@@ -645,32 +665,33 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Vesper's Host",
     expansion: "The Final Shape",
     path: "vespers_host",
-    imgUrl: "",
+    imgUrl: "/dungeons/vespers_host/vespers_host.jpg",
+    colorName: "amber-500",
     encounters: [
       {
         encounterName: "Embarkation",
         path: "embarkation",
-        imgUrl: ""
+        imgUrl: "/dungeons/vespers_host/embarkation.jpg"
       },
       {
         encounterName: "Activation",
         path: "activation",
-        imgUrl: ""
+        imgUrl: "/dungeons/vespers_host/activation.jpg"
       },
       {
         encounterName: "Infiltration",
         path: "infiltration",
-        imgUrl: ""
+        imgUrl: "/dungeons/vespers_host/infiltration.jpg"
       },
       {
         encounterName: "Raneiks Unified",
         path: "raneiks",
-        imgUrl: ""
+        imgUrl: "/dungeons/vespers_host/raneiks.jpg"
       },
       {
         encounterName: "The Corrupted Puppeteer",
         path: "corrupted_puppeteer",
-        imgUrl: ""
+        imgUrl: "/dungeons/vespers_host/corrupted_puppeteer.jpg"
       },
     ]
   },
@@ -679,27 +700,28 @@ export const dungeons: Raid_Dungeon[] = [
     name: "Sundered Doctrine",
     expansion: "The Final Shape",
     path: "sundered_doctrine",
-    imgUrl: "",
+    imgUrl: "/dungeons/sundered/sundered.jpg",
+    colorName: "stone-900",
     encounters: [
       {
         encounterName: "Solve the Riddle",
         path: "riddle",
-        imgUrl: ""
+        imgUrl: "/dungeons/sundered/riddle.jpg"
       },
       {
         encounterName: "Zoetic Lockset",
         path: "zoetic_lockset",
-        imgUrl: ""
+        imgUrl: "/dungeons/sundered/zoetic.png"
       },
       {
         encounterName: "Locate the Vault",
         path: "locate_vault",
-        imgUrl: ""
+        imgUrl: "/dungeons/sundered/locate_vault.jpg"
       },
       {
         encounterName: "Kerrev, the Erased",
         path: "kerrev",
-        imgUrl: ""
+        imgUrl: "/dungeons/sundered/kerrev.jpg"
       },
     ]
   },
@@ -707,23 +729,24 @@ export const dungeons: Raid_Dungeon[] = [
     id: 10,
     name: "Equilibrium",
     expansion: "Renegades",
-    path: "",
-    imgUrl: "",
+    path: "equilibrium",
+    imgUrl: "/dungeons/equilibrium/equilibrium.jpg",
+    colorName: "blue-600",
     encounters: [
       {
         encounterName: "The Temple Grounds",
         path: "temple_grounds",
-        imgUrl: ""
+        imgUrl: "/dungeons/equilibrium/temple_grounds.jpg"
       },
       {
         encounterName: "Harrow, Dredgen Apprentice",
         path: "harrow",
-        imgUrl: ""
+        imgUrl: "/dungeons/equilibrium/harrow.jpg"
       },
       {
         encounterName: "Dredgen Sere",
         path: "dredgen_sere",
-        imgUrl: ""
+        imgUrl: "/dungeons/equilibrium/dredgen_sere.jpg"
       },
     ]
   }
