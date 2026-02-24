@@ -1,6 +1,35 @@
 <div class="flex flex-col items-center space-y-2 text-xs">
-  <mat-form-field class="w-3/4">
-    <input [(ngModel)]="search" type="text" matInput />
-    <mat-icon class="scale-75" matPrefix>search</mat-icon>
-  </mat-form-field>
+  <div class="flex flex-row w-full mt-2 items-center">
+    <div class="flex flex-col text-xs">
+      <mat-checkbox class="scale-75" [(ngModel)]="includeRaids">Raids</mat-checkbox>
+      <mat-checkbox class="scale-75" [(ngModel)]="includeDungeons">Dungeons</mat-checkbox>
+    </div>
+    <mat-form-field class="w-2/3 mt-4">
+      <input [(ngModel)]="search" type="text" matInput />
+      <mat-icon class="scale-75" matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  @for (rd of filteredItems(); track $index) {
+    <div class="w-full">
+      <mat-card>
+        <div class="h-fit grid grid-cols-11 items-center border-l-4 {{getBorderClass(rd)}}">
+          <mat-icon class="scale-75"
+                    (click)="rd.isExpanded = !rd.isExpanded">{{rd.isExpanded ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
+            <span class="text-sm active:text-blue-600 active:underline col-span-6">{{rd.name}}</span>
+            <img src="{{rd.imgUrl}}" class="rounded-full w-10 m-2" alt="{{rd.name}}" fill/>
+        </div>
+      </mat-card>
+      @if (rd.isExpanded) {
+        <app-encounter-list [encounters]="rd.encounters" [borderClass]="`border-${rd.colorName}`" />
+      }
+
+      @if (!rd.isExpanded && rd.searchEncounters && rd.encounters.length !== rd.searchEncounters.length) {
+        <app-encounter-list [encounters]="rd.searchEncounters" [borderClass]="`border-${rd.colorName}`" />
+      }
+    </div>
+  } @empty {
+    <span>No results</span>
+  }
+  <app-used-colors />
 </div>
