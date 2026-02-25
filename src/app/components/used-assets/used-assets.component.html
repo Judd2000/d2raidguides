@@ -1,4 +1,5 @@
-<div>
+<div class="pt-4 overflow-x-hidden">
+<!--  This allows classes to be compiled correctly in a conditional environment-->
   <div class="border-0
   border-teal-400
   border-green-600
@@ -21,4 +22,29 @@
   border-amber-500
   border-stone-900
   border-blue-600"></div>
+  <div class="flex flex-col items-start">
+    <span class="text-xl font-bold text-center block w-full">Acknowledgements</span>
+    <div id="image-sources" class="flex flex-col p-2">
+      <span>Image Sources:</span>
+<!--      TODO: Consider using the Capacitor in-app browser for this-->
+      <ul class="list-disc pl-4">
+        @for (img of imgUrls; track img) {
+
+          <li>
+            <a href="{{img}}" target="_blank" rel="noopener noreferrer" class="text-[10px] text-blue-500 active:underline break-all">{{img}}</a>
+          </li>
+        }
+      </ul>
+    </div>
+    <div id="package-sources" class="flex flex-col p-2">
+      <span>NPM Packages:</span>
+      <ul class="list-disc pl-4">
+        @for (dep of dependencies(); track dep) {
+          <li>
+            <span class="text-[10px]">{{dep}}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
 </div>

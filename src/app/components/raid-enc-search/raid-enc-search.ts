@@ -6,7 +6,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { dungeons, Encounter, Raid_Dungeon, raids } from '../../raid-models/raid-models';
 import { MatCardModule } from '@angular/material/card';
 import { Encounterlist } from '../encounter-list/encounterlist';
-import { UsedAssets } from '../used-assets/used-assets.component';
 
 @Component({
   selector: 'app-raid-enc-search',
@@ -19,7 +18,6 @@ import { UsedAssets } from '../used-assets/used-assets.component';
     MatCheckboxModule,
     MatCardModule,
     Encounterlist,
-    UsedAssets,
   ],
   templateUrl: './raid-enc-search.html',
   styleUrl: './raid-enc-search.css',

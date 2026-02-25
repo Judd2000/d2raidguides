@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import packageJson from '../../../../package.json';
 
 @Component({
   selector: 'app-used-colors',
@@ -7,6 +8,18 @@ import { Component } from '@angular/core';
   styleUrl: './used-assets.component.css',
 })
 export class UsedAssets {
+
+  dependencies = signal<string[]>([]);
+
+  constructor() {
+    const deps = Object.entries(packageJson.dependencies || {});
+    const devDeps = Object.entries(packageJson.devDependencies || {});
+
+    const allDeps = [...deps, ...devDeps].map(([name, ver]) => `${name} @ ${ver}`);
+
+    this.dependencies.set(allDeps);
+  }
+
   imgUrls: string[] = [
     'https://www.dexerto.com/destiny/destiny-2-players-find-broken-deep-engram-farm-that-drops-one-every-minute-2156304/',
     'https://steamcommunity.com/sharedfiles/filedetails/?id=1879473494',
@@ -111,6 +124,14 @@ export class UsedAssets {
     'https://www.novarcan.com/jeux/destiny-2/donjons/hote-vesper/infiltration-et-l-enigme-des-reserves-de-puissance/',
     'https://gamerant.com/destiny-2-vespers-host-how-to-defeat-raneiks-unified-dungeon-guide/',
     'https://www.destinypedia.com/The_Corrupted_Puppeteer',
-    '',
+    'https://www.fanbyte.com/destiny-2/guides/destiny-2-grasp-of-avarice-dungeon-guide-encounter',
+    'https://www.polygon.com/destiny-2-guide-walkthrough/521312/sundered-doctrine-dungeon-guide-walkthrough-encounter-symbols/',
+    'https://dotesports.com/destiny/news/sundered-doctrine-first-encounter-guide-destiny-2-riddle',
+    'https://www.destinypedia.com/Zoetic_Lockset',
+    'https://dotesports.com/destiny/news/how-to-defeat-kerrev-the-erased-and-beat-the-third-encounter-in-sundered-doctrine-in-destiny-2',
+    'https://gamerant.com/destiny-2-equilibrium-dungeon-guide-all-encounters-harvester-harrow-sere/',
+    'https://thegamepost.com/destiny-2-equilibrium-dungeon-guide/',
+    'https://www.destinypedia.com/Dredgen_Sere',
+    'https://www.destinypedia.com/Harrow,_Dredgen-Apprentice'
   ];
 }
