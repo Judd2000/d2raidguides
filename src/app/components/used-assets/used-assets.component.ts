@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import packageJson from '../../../../package.json';
 
 @Component({
   selector: 'app-used-colors',
@@ -7,6 +8,18 @@ import { Component } from '@angular/core';
   styleUrl: './used-assets.component.css',
 })
 export class UsedAssets {
+
+  dependencies = signal<string[]>([]);
+
+  constructor() {
+    const deps = Object.entries(packageJson.dependencies || {});
+    const devDeps = Object.entries(packageJson.devDependencies || {});
+
+    const allDeps = [...deps, ...devDeps].map(([name, ver]) => `${name} @ ${ver}`);
+
+    this.dependencies.set(allDeps);
+  }
+
   imgUrls: string[] = [
     'https://www.dexerto.com/destiny/destiny-2-players-find-broken-deep-engram-farm-that-drops-one-every-minute-2156304/',
     'https://steamcommunity.com/sharedfiles/filedetails/?id=1879473494',
