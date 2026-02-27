@@ -1,0 +1,11 @@
+<div class="flex flex-col items-center">
+  <div class="flex flex-col">
+    <mat-icon class="scale-75" routerLink="/rd/{{raidPath()}}">arrow_back</mat-icon>
+    <mat-card class="w-full">
+      <div class="flex flex-row items-center space-x-4 p-4">
+        <span class="text-lg folt-bold italic">{{encounter()?.encounterName}}</span>
+        <img src="{{encounter()?.imgUrl}}" class="rounded-full w-17" />
+      </div>
+    </mat-card>
+  </div>
+</div>

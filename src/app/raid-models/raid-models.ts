@@ -752,3 +752,5 @@ export const dungeons: Raid_Dungeon[] = [
   }
 ];
 
+export const raidDungeons = [...raids, ...dungeons];
+

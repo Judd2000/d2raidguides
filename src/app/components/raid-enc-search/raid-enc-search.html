@@ -16,16 +16,16 @@
         <div class="h-fit grid grid-cols-11 items-center border-l-4 {{getBorderClass(rd)}}">
           <mat-icon class="scale-75"
                     (click)="rd.isExpanded = !rd.isExpanded">{{rd.isExpanded ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
-            <span class="text-sm active:text-blue-600 active:underline col-span-6">{{rd.name}}</span>
-            <img src="{{rd.imgUrl}}" class="rounded-full w-10 m-2" alt="{{rd.name}}" fill/>
+            <span class="text-sm active:text-blue-600 active:underline col-span-6" routerLink="/rd/{{rd.path}}">{{rd.name}}</span>
+            <img src="{{rd.imgUrl}}" class="rounded-full w-10 m-2" alt="{{rd.name}}" />
         </div>
       </mat-card>
       @if (rd.isExpanded) {
-        <app-encounter-list [encounters]="rd.encounters" [borderClass]="`border-${rd.colorName}`" />
+        <app-encounter-list [rdPath]="rd.path" [encounters]="rd.encounters" [color]="rd.colorName" />
       }
 
       @if (!rd.isExpanded && rd.searchEncounters && rd.encounters.length !== rd.searchEncounters.length) {
-        <app-encounter-list [encounters]="rd.searchEncounters" [borderClass]="`border-${rd.colorName}`" />
+        <app-encounter-list [rdPath]="rd.path" [encounters]="rd.searchEncounters" [color]="rd.colorName" />
       }
     </div>
   } @empty {
