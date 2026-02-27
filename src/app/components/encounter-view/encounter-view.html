@@ -2,10 +2,43 @@
   <div class="flex flex-col">
     <mat-icon class="scale-75" routerLink="/rd/{{raidPath()}}">arrow_back</mat-icon>
     <mat-card class="w-full">
-      <div class="flex flex-row items-center space-x-4 p-4">
-        <span class="text-lg folt-bold italic">{{encounter()?.encounterName}}</span>
-        <img src="{{encounter()?.imgUrl}}" class="rounded-full w-17" />
+      <div class="flex flex-col p-4" >
+        <div class="flex flex-row items-center space-x-4 p-4">
+          <span class="text-lg folt-bold italic">{{encounter()?.encounterName}}</span>
+          <img src="{{encounter()?.imgUrl}}" class="rounded-full w-17" />
+        </div>
       </div>
     </mat-card>
+    <div class="flex flex-col space-y-4 p-2">
+      @for (strategy of strategies(); track strategy.user) {
+        <mat-card>
+          <div class="flex flex-col p-3">
+            <div class="flex flex-row items-center space-x-4">
+              <span class="text-xs">{{strategy.user}}</span>
+              <img src="{{strategy.userImg}}" alt="{{strategy.user}}" class="w-10 h-10 text-[8px]" />
+              <div class="flex flex-row space-x-2">
+                <svg width="15" height="15" class="fill-yellow-400">
+                  <use xlink:href="assets/images/star-rating.icons.svg#star-filled"></use>
+                </svg>
+                <span class="text-xs pt-0.25">{{strategy.rating}}</span>
+              </div>
+            </div>
+            <span class="text-xs">{{strategy.content}}</span>
+            <div class="flex flex-row pt-2 items-center justify-center">
+              <star-rating
+                [starType]="'svg'"
+                [rating]="strategy.rating"
+                [step]="1"
+                [showHalfStars]="true"
+                [numOfStars]="10"
+                [staticColor]="'ok'"></star-rating>
+              <!--      TODO: Submit rating to database with this button-->
+              <button mat-button class="mb-1">Rate</button>
+              <!--      TODO add loading button while it sends to the database-->
+            </div>
+          </div>
+        </mat-card>
+      }
+    </div>
   </div>
 </div>

@@ -9,7 +9,6 @@ import { Encounterlist } from '../encounter-list/encounterlist';
   selector: 'app-raid-dungeon-view',
   imports: [
     StarRatingModule,
-    MatButton,
     Encounterlist
   ],
   templateUrl: './raid-dungeon-view.html',
@@ -23,10 +22,6 @@ export class RaidDungeonView {
   avgDbRating = signal(5.5);
 
   private activatedRoute = inject(ActivatedRoute);
-
-  getBorderClass(){
-    return `border-${this.rd()?.colorName ?? 'gray-600'}`;
-  }
 
   updateRating(event: any) {
     this.userRating.set(event.rating);
