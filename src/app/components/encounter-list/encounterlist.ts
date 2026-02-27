@@ -16,15 +16,11 @@ export class Encounterlist {
 
   @Input() isLarge = false;
 
-  @Input() includeRating = false;
-
   @Input() encounters: Encounter[] = [];
 
   @Input() rdPath?: string;
 
   @Input() color?: string;
-
-  ratings: number[] = [];
 
   getBorderClass = () => `border-${this.color}`;
 
