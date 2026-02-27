@@ -1,0 +1,33 @@
+<div class="flex flex-col items-center">
+  <div class="flex flex-col w-fit">
+    <div class="flex flex-row justify-center items-center space-x-2">
+      <span class="text-lg font-bold italic pr-4">{{rd()?.name}}</span>
+      <img src="{{rd()?.imgUrl}}" class="w-15" />
+      <svg width="20" height="20" class="fill-yellow-400">
+        <use xlink:href="assets/images/star-rating.icons.svg#star-filled"></use>
+      </svg>
+      <span class="text-xs">{{avgDbRating()}}</span>
+    </div>
+    <div class="w-full h-1 border-2 block {{getBorderClass()}}"></div>
+    <div class="flex flex-row pt-2 items-center justify-center">
+      <star-rating
+        [starType]="'svg'"
+        [rating]="userRating()"
+        (ratingChange)="updateRating($event)"
+        [step]="1"
+        [showHalfStars]="true"
+        [numOfStars]="10"
+        [staticColor]="'ok'"></star-rating>
+<!--      TODO: Submit rating to database with this button-->
+      <button mat-button class="mb-1">Rate</button>
+<!--      TODO add loading button while it sends to the database-->
+    </div>
+    <app-encounter-list
+      [encounters]="rd()?.encounters ?? []"
+      [rdPath]="rd()?.path"
+      [color]="rd()?.colorName"
+      [isLarge]="true"
+      [includeRating]="true"
+    />
+  </div>
+</div>
