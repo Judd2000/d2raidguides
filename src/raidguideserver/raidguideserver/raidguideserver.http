@@ -1,0 +1,6 @@
+@raidguideserver_HostAddress = http://localhost:5095
+
+GET {{raidguideserver_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

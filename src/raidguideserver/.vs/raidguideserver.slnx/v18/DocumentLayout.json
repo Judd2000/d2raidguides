@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "B:\\d2raidguides\\src\\raidguideserver\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2366A822-0539-49F2-ADC2-B16B4FDDD67B}|raidguideserver\\raidguideserver.csproj|b:\\d2raidguides\\src\\raidguideserver\\raidguideserver\\controllers\\signin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2366A822-0539-49F2-ADC2-B16B4FDDD67B}|raidguideserver\\raidguideserver.csproj|solutionrelative:raidguideserver\\controllers\\signin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2366A822-0539-49F2-ADC2-B16B4FDDD67B}|raidguideserver\\raidguideserver.csproj|b:\\d2raidguides\\src\\raidguideserver\\raidguideserver\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2366A822-0539-49F2-ADC2-B16B4FDDD67B}|raidguideserver\\raidguideserver.csproj|solutionrelative:raidguideserver\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "B:\\d2raidguides\\src\\raidguideserver\\raidguideserver\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "raidguideserver\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "B:\\d2raidguides\\src\\raidguideserver\\raidguideserver\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "raidguideserver\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T22:02:46.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SignIn.cs",
+              "DocumentMoniker": "B:\\d2raidguides\\src\\raidguideserver\\raidguideserver\\Controllers\\SignIn.cs",
+              "RelativeDocumentMoniker": "raidguideserver\\Controllers\\SignIn.cs",
+              "ToolTip": "B:\\d2raidguides\\src\\raidguideserver\\raidguideserver\\Controllers\\SignIn.cs",
+              "RelativeToolTip": "raidguideserver\\Controllers\\SignIn.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T22:02:41.492Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

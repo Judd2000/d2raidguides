@@ -14,6 +14,10 @@ export const routes: Routes = [
     component: UsedAssets
   },
   {
+    path: 'callback',
+    
+  },
+  {
     path: 'rd/:path/:encPath',
     component: EncounterView
   },

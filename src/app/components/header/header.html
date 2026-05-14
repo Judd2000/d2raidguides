@@ -7,9 +7,24 @@
       <span class="p-1 mb-1 active:bg-gray-400 active:rounded-sm active:text-blue-500 text-xs" routerLink="/acknowledgements">Acknowledgements</span>
     </div>
 
-    <div class="">
-      <mat-icon class="bg-white rounded-full active:bg-gray-400">person</mat-icon>
-    </div>
+      <mat-icon 
+      cdkOverlayOrigin
+      #origin="cdkOverlayOrigin" 
+      (click)="isOpen = !isOpen" 
+      class="bg-white rounded-full active:bg-gray-400">person</mat-icon>
+
+    <!-- The actual overlay -->
+  <ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="isOpen"
+  (backdropClick)="isOpen = false">
+  
+  <div class="bg-white w-30 h-24 rounded-md flex items-center justify-center p-2 cursor-pointer">
+    <span (click)="signIn()" class="text-md select-none active:bg-gray-200 transition-colors p-2 rounded-sm">Please sign in</span>
+  </div>
+  
+</ng-template>
   </div>
 </div>
 
