@@ -14,7 +14,8 @@ if (app.Environment.IsDevelopment())
   app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+// Produces 307 and redirects to HTTPS if http is hit.
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

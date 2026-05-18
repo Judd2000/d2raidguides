@@ -1,15 +1,21 @@
 [
   {
-    "ContainingType": "raidguideserver.Controllers.SignIn",
+    "ContainingType": "raidguideserver.Controllers.GetTokens",
     "Method": "Get",
-    "RelativePath": "api/SignIn",
-    "HttpMethod": "",
+    "RelativePath": "api/GetTokens",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "auth_code",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.String[]",
+        "Type": "raidguideserver.Token",
         "MediaTypes": [
           "text/plain",
           "application/json",

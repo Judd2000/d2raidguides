@@ -26,7 +26,6 @@ B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\staticweba
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\staticwebassets.development.json
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\swae.build.ex.cache
-B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\raidguid.73387F02.Up2Date
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\raidguideserver.dll
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\refint\raidguideserver.dll

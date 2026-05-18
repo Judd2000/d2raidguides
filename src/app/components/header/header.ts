@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { Browser } from '@capacitor/browser';
+import { InAppBrowser, DefaultSystemBrowserOptions } from '@capacitor/inappbrowser';
+import { authUrl, clientId, key } from '../../constants';
 
 @Component({
   selector: 'app-header',
@@ -18,17 +19,11 @@ export class Header {
   isOpen = false;
 
   signIn() {
-    const key = 'cd08aa0e1a724e5fb795e39303c9367a';
-
-    const clientId = 52217;
-
-    const authUrl = 'https://www.bungie.net/en/OAuth/Authorize';
-
     const fullUrl = `${authUrl}?X-API-Key=${key}&client_id=${clientId}&response_type=code`
 
-    Browser.open({
+    InAppBrowser.openInSystemBrowser({
       url: fullUrl,
-      windowName: '_blank'
+      options: DefaultSystemBrowserOptions
     });
   }
 }

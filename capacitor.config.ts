@@ -6,7 +6,15 @@ const config: CapacitorConfig = {
   webDir: 'dist/d2raidguides/browser',
   server: {
     androidScheme: "d2raidguides"
-  }
+  },
+  plugins: {
+    CapacitorCookies: {
+      enabled: true,
+    },
+    CapacitorHttp: {
+      enabled: true
+    }
+}
 };
 
 export default config;
