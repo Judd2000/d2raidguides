@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { InAppBrowser, DefaultSystemBrowserOptions } from '@capacitor/inappbrowser';
 import { authUrl, clientId, key } from '../../constants';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,9 @@ import { authUrl, clientId, key } from '../../constants';
   styleUrl: './header.css',
 })
 export class Header {
+
+  constructor(public userService: UserService) {}
+
   isOpen = false;
 
   signIn() {
@@ -24,6 +28,6 @@ export class Header {
     InAppBrowser.openInSystemBrowser({
       url: fullUrl,
       options: DefaultSystemBrowserOptions
-    });
+    }).then(() => this.isOpen = false);
   }
 }

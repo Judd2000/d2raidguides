@@ -6,6 +6,7 @@ import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { serverUrl } from './constants';
 import { CapacitorHttp } from '@capacitor/core';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,18 @@ import { CapacitorHttp } from '@capacitor/core';
 })
 export class AppComponent implements OnInit {
 
+  constructor(private userService: UserService) { }
+
   protected readonly title = signal('d2raidguides');
+
+  cookieName = "D2RG_COOKIE";
+
+  getCookieByName(name: string) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts?.length === 2) return parts.pop()?.split(';').shift();
+    return "";
+  };
 
   ngOnInit(): void {
     App.addListener('appUrlOpen', (event) => {
@@ -29,8 +41,6 @@ export class AppComponent implements OnInit {
         Browser.close();
 
         const authCode = url.searchParams.get('code');
-
-        
         const tokenUrl = `${serverUrl}/gettokens?auth_code=${authCode}`;
 
         const options = {
@@ -40,23 +50,12 @@ export class AppComponent implements OnInit {
         // save access and refresh token happens automatically with CapacitorHttp.
         CapacitorHttp.get(options).then((r) => {
           console.log("weewoo weewoo response", JSON.stringify(r?.data));
-
-
-          // your application should save the access_token and refresh_token.
-          // we need these strings until the next refresh.
-
-          // your application should calculate and save the time then the access_token will expire.
-          // expires_in says how many seconds until that happens, so add those seconds to the current datetime.
-
-          // so if expires_in says 3600 seconds, then if you need to make another request more than 1 hour from right now, you should refresh the token instead of trying to use it.
-
-          // your application should calculate and save the time then the refresh_token will expire.
-          // refresh_expires_in says how many seconds until that happens, so add those seconds to the current datetime.
-
-          // so if refresh_expires_in says 7776000 seconds, then if you need to refresh the token more than 90 days from right now, the user will probably need to log in again.
+          if (r?.data) {
+            this.userService.setToken("D2RG_TOKEN", r.data);
+            this.userService.getProfileImg(r.data);
+          }
         });
       }
     })
   }
-
 }

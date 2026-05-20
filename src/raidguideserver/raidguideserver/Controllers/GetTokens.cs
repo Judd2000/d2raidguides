@@ -12,7 +12,8 @@ namespace raidguideserver.Controllers
 
     private static HttpClient requestClient = new() { BaseAddress = endpoint };
     [HttpGet]
-    public async Task<ActionResult<Token>> Get([FromQuery(Name = "auth_code")] string? authCode, [FromQuery(Name = "refresh_token")] string? refreshToken) {
+    public async Task<ActionResult<Token>> Get([FromQuery(Name = "auth_code")] string? authCode, [FromQuery(Name = "refresh_token")] string? refreshToken)
+    {
 
       if (string.IsNullOrEmpty(authCode) && string.IsNullOrEmpty(refreshToken))
       {
@@ -29,10 +30,12 @@ namespace raidguideserver.Controllers
         { "client_secret", clientSecret }
       };
 
-      if (!string.IsNullOrEmpty(authCode)) {
+      if (!string.IsNullOrEmpty(authCode))
+      {
         keyValues.Add("code", authCode);
       }
-      else {
+      else if (!string.IsNullOrEmpty(refreshToken))
+      {
         keyValues.Add("refreshToken", refreshToken);
       }
 
@@ -42,9 +45,8 @@ namespace raidguideserver.Controllers
 
       request.Content = new FormUrlEncodedContent(keyValues);
 
-      Console.WriteLine($"HTTP Request Object {request}");
-
-      try {
+      try
+      {
         using HttpResponseMessage response = await requestClient.SendAsync(request);
 
         response.EnsureSuccessStatusCode();
@@ -53,12 +55,25 @@ namespace raidguideserver.Controllers
 
         Token? token = JsonSerializer.Deserialize<Token>(body);
 
-        Console.WriteLine($"Deserialized object {token}");
-
-        return token?? new Token();
-      } catch (HttpRequestException ex) {
+        return token ?? new Token();
+      }
+      catch (HttpRequestException ex)
+      {
         return BadRequest(ex);
       }
+    }
+  }
+
+  [Route("api/[controller]")]
+  [ApiController]
+  public class GetUserData
+  {
+
+    [HttpGet]
+    public async Task<ActionResult<string>> WeewooWeewoo([FromQuery(Name = "membership_id")] string membershipId,
+      [FromQuery(Name = "access_token")] string accessToken)
+    {
+      return "nothing";
     }
   }
 }

@@ -11,6 +11,11 @@
         "Name": "auth_code",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "refresh_token",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -26,16 +31,27 @@
     ]
   },
   {
-    "ContainingType": "raidguideserver.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "raidguideserver.Controllers.GetUserData",
+    "Method": "WeewooWeewoo",
+    "RelativePath": "api/GetUserData",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "membership_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "access_token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[raidguideserver.WeatherForecast, raidguideserver, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.String",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -43,7 +59,6 @@
         ],
         "StatusCode": 200
       }
-    ],
-    "EndpointName": "GetWeatherForecast"
+    ]
   }
 ]

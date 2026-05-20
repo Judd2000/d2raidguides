@@ -32,3 +32,4 @@ B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\refint\rai
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\raidguideserver.pdb
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\raidguideserver.genruntimeconfig.cache
 B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\ref\raidguideserver.dll
+B:\d2raidguides\src\raidguideserver\raidguideserver\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

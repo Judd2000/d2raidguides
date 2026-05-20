@@ -8,6 +8,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    importProvidersFrom(StarRatingModule.forRoot())
+    importProvidersFrom(StarRatingModule.forRoot()),
   ]
 };
