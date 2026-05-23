@@ -7,3 +7,5 @@ export const authUrl = 'https://www.bungie.net/en/OAuth/Authorize';
 export const serverUrl = 'http://10.0.2.2:5095/api';
 
 export const profileUrl = 'https://www.bungie.net/Platform/User/GetBungieNetUserById/';
+
+export const tokenName = "D2RG_TOKEN";
