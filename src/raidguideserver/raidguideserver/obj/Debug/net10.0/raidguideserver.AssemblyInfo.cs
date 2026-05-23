@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("raidguideserver")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d2490e7795988b185c539c9dd207a7e0e4dc8c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83019aaba3bfa9719b5e653f027703717d1da21b")]
 [assembly: System.Reflection.AssemblyProductAttribute("raidguideserver")]
 [assembly: System.Reflection.AssemblyTitleAttribute("raidguideserver")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
