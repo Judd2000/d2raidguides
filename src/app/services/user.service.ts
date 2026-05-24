@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { key, profileUrl, tokenName } from '../constants';
+import { authUrl, clientId, key, profileUrl, signOutUrl, tokenName } from '../constants';
 import { CapacitorHttp } from '@capacitor/core';
 import { InAppBrowser, DefaultSystemBrowserOptions } from '@capacitor/inappbrowser';
 
@@ -32,13 +32,22 @@ export class UserService {
     localStorage.removeItem(name);
   }
 
+  signIn() {
+    const fullUrl = `${authUrl}?X-API-Key=${key}&client_id=${clientId}&response_type=code`
+
+    return InAppBrowser.openInSystemBrowser({
+      url: fullUrl,
+      options: DefaultSystemBrowserOptions
+    });
+  }
+
   signOut() {
     this.signingOut.set(true);
     InAppBrowser.openInSystemBrowser({
-      url: 'https://www.bungie.net/en/User/SignOut',
+      url: signOutUrl,
       options: DefaultSystemBrowserOptions
-    }); // find a way to recognize when this goes back to the bungie homepage.
-  }  //Sorry its late so i have to head off GN! night!
+    });
+  }
 
   clearUser() {
     InAppBrowser.close();
@@ -53,22 +62,23 @@ export class UserService {
     if (token) {
       const tokenObj = JSON.parse(token);
 
-      if (tokenObj["accessExpire"]) {
+      const accessExpire = tokenObj["accessExpire"];
+
+      if (!accessExpire || accessExpire < Date.now()) {
         // is expired?
 
-        // 1. Yes: Check refresh token
-        // - is expired? Open sign-in
-        // - isn't expired? Refresh access token
+        console.log('Access token expires at', accessExpire, typeof accessExpire);
 
-        // 2. No: Proceed
+        const refreshExpire = tokenObj["refreshExpire"];
+        if (!refreshExpire || refreshExpire < Date.now()) {
+          // Open sign-in
+          this.signIn();
+        } else {
+          // refresh access token.
+        }
       }
     }
   }
-
-  // checkToken.
-  // 1. Is access token valid? Proceed.
-  // 2. Is refresh token valid? Request new access token
-  // 3. Neither? Open sign in window
 
   getProfileImg(data: any) {
     const membershipId = data.membership_id ?? data["membership_id"];

@@ -23,16 +23,7 @@ export class Header {
   isOpen = false;
 
   signIn() {
-    const fullUrl = `${authUrl}?X-API-Key=${key}&client_id=${clientId}&response_type=code`
-
-    const cookies = document.cookie;
-
-    console.log("Cookies", JSON.stringify(cookies));
-
-    InAppBrowser.openInSystemBrowser({
-      url: fullUrl,
-      options: DefaultSystemBrowserOptions
-    }).then(() => this.isOpen = false);
+    this.userService.signIn().then(() => this.isOpen = false);
   }
 
   signOut() {

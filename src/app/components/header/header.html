@@ -38,6 +38,7 @@
             class="text-md select-none active:bg-gray-200 transition-colors p-2 rounded-sm"
             (click)="signOut()"
           >Sign Out</span>
+          <span (click)="userService.handleTokenStatus()">See Things that You Can See</span>
         }
       </div>
     </ng-template>

@@ -35,9 +35,7 @@ export class AppComponent implements OnInit {
     
     InAppBrowser.addListener('browserPageLoaded', () => {
       if (this.userService.signingOut()) {
-        setTimeout(() => {
-          this.userService.clearUser();
-        }, 1000);
+        this.userService.clearUser();
       }
     })
 
