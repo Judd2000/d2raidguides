@@ -11,11 +11,10 @@ namespace raidguideserver.Controllers
     static Uri endpoint = new(Environment.GetEnvironmentVariable("D2RG_BUNGIE_TOKEN_ENDPOINT") ?? "https://example.com");
 
     private static HttpClient requestClient = new() { BaseAddress = endpoint };
-    [HttpGet]
-    public async Task<ActionResult<Token>> Get([FromQuery(Name = "auth_code")] string? authCode, [FromQuery(Name = "refresh_token")] string? refreshToken)
-    {
+    [HttpPost]
+    public async Task<ActionResult<Token>> Post([FromBody] TokenRequest requestBody) {
 
-      if (string.IsNullOrEmpty(authCode) && string.IsNullOrEmpty(refreshToken))
+      if (string.IsNullOrEmpty(requestBody.AuthCode) && string.IsNullOrEmpty(requestBody.RefreshToken))
       {
         return BadRequest("Either auth_code or refresh_token must be provided.");
       }
@@ -25,33 +24,43 @@ namespace raidguideserver.Controllers
       string clientSecret = Environment.GetEnvironmentVariable("D2RG_CLIENT_SECRET") ?? "";
 
       Dictionary<string, string> keyValues = new() {
-        { "grant_type", "authorization_code" },
         { "client_id", clientId },
         { "client_secret", clientSecret }
       };
 
-      if (!string.IsNullOrEmpty(authCode))
+      if (!string.IsNullOrEmpty(requestBody.AuthCode))
       {
-        keyValues.Add("code", authCode);
+        keyValues.Add("code", requestBody.AuthCode);
+        keyValues.Add("grant_type", "authorization_code");
       }
-      else if (!string.IsNullOrEmpty(refreshToken))
+      else if (!string.IsNullOrEmpty(requestBody.RefreshToken))
       {
-        keyValues.Add("refreshToken", refreshToken);
+        keyValues.Add("refresh_token", requestBody.RefreshToken);
+        keyValues.Add("grant_type", "refresh_token");
       }
 
-      using HttpRequestMessage request = new(HttpMethod.Post, endpoint);
+      using HttpRequestMessage tokenReq = new(HttpMethod.Post, endpoint);
 
-      request.Headers.Add("X-API-Key", Environment.GetEnvironmentVariable("D2RG_API_KEY"));
+      tokenReq.Headers.Add("X-API-Key", Environment.GetEnvironmentVariable("D2RG_API_KEY"));
 
-      request.Content = new FormUrlEncodedContent(keyValues);
+      tokenReq.Content = new FormUrlEncodedContent(keyValues);
 
       try
       {
-        using HttpResponseMessage response = await requestClient.SendAsync(request);
-
-        response.EnsureSuccessStatusCode();
+        using HttpResponseMessage response = await requestClient.SendAsync(tokenReq);
 
         string body = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode) {
+          Console.WriteLine($"Request failed with status {response.StatusCode}. Response: {body}");
+
+          return BadRequest(new
+          {
+            message = "Failed to renew token",
+            statusCode = response.StatusCode,
+            statusLabel = response.StatusCode.ToString(),
+            error = body
+          });
+        }
 
         Token? token = JsonSerializer.Deserialize<Token>(body);
 
@@ -59,7 +68,8 @@ namespace raidguideserver.Controllers
       }
       catch (HttpRequestException ex)
       {
-        return BadRequest(ex);
+        Console.WriteLine($"System error: {ex}");
+        return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
       }
     }
   }

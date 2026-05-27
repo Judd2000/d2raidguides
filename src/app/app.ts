@@ -27,11 +27,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Fix this to check token TTL
-    const token = localStorage.getItem(tokenName);
-    if (token) {
-      console.log("Token", JSON.stringify(token), JSON.parse(token)["membership_id"]);
-      this.userService.getProfileImg(JSON.parse(token) ?? {});
-    }
+    this.userService.handleTokenStatus(false, () => {
+      console.log('In callback in app.ts'); 
+      this.userService.getProfileImg();
+    });
+
     
     InAppBrowser.addListener('browserPageLoaded', () => {
       if (this.userService.signingOut()) {
@@ -45,20 +45,8 @@ export class AppComponent implements OnInit {
       if (url.host === 'callback' || url.pathname.includes('callback')) {
         Browser.close();
         
-        const authCode = url.searchParams.get('code');
-        const tokenUrl = `${serverUrl}/gettokens?auth_code=${authCode}`;
-
-        const options = {
-          url: tokenUrl,
-        };
-
-        // save access and refresh token happens automatically with CapacitorHttp.
-        CapacitorHttp.get(options).then((r) => {
-          if (r?.data) {
-            this.userService.setToken(tokenName, r.data);
-            this.userService.getProfileImg(r.data);
-          }
-        });
+        const authCode = url.searchParams.get('code') ?? '';
+        this.userService.getAuthTokens({ authCode })
       }
     })
   }

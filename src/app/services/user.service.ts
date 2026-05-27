@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { authUrl, clientId, key, profileUrl, signOutUrl, tokenName } from '../constants';
+import { authUrl, clientId, key, profileUrl, serverUrl, signOutUrl, tokenName } from '../constants';
 import { CapacitorHttp } from '@capacitor/core';
 import { InAppBrowser, DefaultSystemBrowserOptions } from '@capacitor/inappbrowser';
 
@@ -57,45 +57,86 @@ export class UserService {
     this.signingOut.set(false);
   }
 
-  handleTokenStatus() {
+  handleTokenStatus(promptSignIn: boolean, callback?: () => void) {
+    console.log('Handle token status called.')
     const token = localStorage.getItem(tokenName);
+    console.log('We have the token', token);
     if (token) {
       const tokenObj = JSON.parse(token);
 
-      const accessExpire = tokenObj["accessExpire"];
+      const accessExpire = Date.now() - 1000;
 
       if (!accessExpire || accessExpire < Date.now()) {
-        // is expired?
-
-        console.log('Access token expires at', accessExpire, typeof accessExpire);
-
+        // access token missing or expired.
         const refreshExpire = tokenObj["refreshExpire"];
+
         if (!refreshExpire || refreshExpire < Date.now()) {
-          // Open sign-in
-          this.signIn();
+          // refresh token missing or expired.
+          if (promptSignIn) this.signIn();
         } else {
-          // refresh access token.
+          const refreshToken = tokenObj["refresh_token"];
+          console.log('Refresh token...', refreshToken);
+          this.getAuthTokens({ refreshToken }, callback);
         }
+      } else {
+        // access token not expired.
+        callback?.();
       }
     }
   }
 
-  getProfileImg(data: any) {
-    const membershipId = data.membership_id ?? data["membership_id"];
-    const profileEndpoint = `${profileUrl}${membershipId}`;
+  getAuthTokens(options: { authCode?: string, refreshToken?: string }, callback?: () => void) {
+    const url = `${serverUrl}/gettokens`;
 
-    // Get profile image for user
-    CapacitorHttp.get({
-      url: profileEndpoint,
+    const payload: Record<string, string> = {};
+    if (options.authCode) {
+      payload['auth_code'] = options.authCode;
+    } else if (options.refreshToken) {
+      // Refresh token 
+      payload['refresh_token'] = options.refreshToken;
+    }
+
+    CapacitorHttp.post({ 
+      url,
       headers: {
-        "X-API-Key": key,
-        "Authorization": `Bearer ${data.access_token ?? data["access_token"]}`
+        'Content-Type': 'application/json'
       },
-    }).then((userDataResponse) => {
-      const userImg = `https://bungie.net${userDataResponse.data.Response.profilePicturePath}`;
-      console.log("The profile picture is", userImg);
-      this.setProfileImg(userImg);
-      this.signedIn.set(true);
+      data: payload
+     }).then((r) => {
+      if (r?.status === 200 && r?.data) {
+        console.log('Token recieved.', JSON.stringify(r.data));
+        this.setToken(tokenName, r.data);
+        this.getProfileImg();
+        callback?.();
+      } else {
+        console.log('Request failed.', r?.status, r?.data);
+      }
     });
+  }
+
+  getProfileImg() {
+    const token = localStorage.getItem(tokenName);
+    console.log('In get profile image....');
+    console.log(token);
+    if (token) {
+      console.log('Getting profile image....');
+      const data = JSON.parse(token) ?? {}
+
+      const membershipId = data.membership_id ?? data["membership_id"];
+      const profileEndpoint = `${profileUrl}${membershipId}`;
+
+      // Get profile image for user
+      CapacitorHttp.get({
+        url: profileEndpoint,
+        headers: {
+          "X-API-Key": key,
+          "Authorization": `Bearer ${data.access_token ?? data["access_token"]}`
+        },
+      }).then((userDataResponse) => {
+        const userImg = `https://bungie.net${userDataResponse.data.Response.profilePicturePath}`;
+        this.setProfileImg(userImg);
+        this.signedIn.set(true);
+      });
+    }
   }
 }
