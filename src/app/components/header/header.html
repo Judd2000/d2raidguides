@@ -26,8 +26,11 @@
       [cdkConnectedOverlayOpen]="isOpen"
       (backdropClick)="isOpen = false">
 
-      <div class="bg-white w-30 h-24 rounded-md flex items-center justify-center py-2 cursor-pointer">
-        @if (!userService.signedIn()) {
+      <div class="bg-white w-30 h-24 rounded-md flex items-center justify-center py-2 cursor-pointer flex-col space-y-2">
+        <div class="active:bg-gray-200 select-none transition-colors w-full flex justify-center">
+          <span class="">My Profile</span>
+        </div>
+          @if (!userService.signedIn()) {
           <span 
           (click)="signIn()"
           class="text-md select-none active:bg-gray-200 transition-colors p-2 rounded-sm">
@@ -38,7 +41,6 @@
             class="text-md select-none active:bg-gray-200 transition-colors p-2 rounded-sm"
             (click)="signOut()"
           >Sign Out</span>
-          <span (click)="userService.handleTokenStatus(true)">See Things that You Can See</span>
         }
       </div>
     </ng-template>

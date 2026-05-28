@@ -8,6 +8,7 @@ import { serverUrl, tokenName } from './constants';
 import { CapacitorHttp } from '@capacitor/core';
 import { UserService } from './services/user.service';
 import { InAppBrowser } from '@capacitor/inappbrowser';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -21,14 +22,15 @@ import { InAppBrowser } from '@capacitor/inappbrowser';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private dataService: DataService
+  ) { }
 
   protected readonly title = signal('d2raidguides');
 
   ngOnInit(): void {
-    // Fix this to check token TTL
     this.userService.handleTokenStatus(false, () => {
-      console.log('In callback in app.ts'); 
       this.userService.getProfileImg();
     });
 

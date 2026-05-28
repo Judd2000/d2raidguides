@@ -58,13 +58,11 @@ export class UserService {
   }
 
   handleTokenStatus(promptSignIn: boolean, callback?: () => void) {
-    console.log('Handle token status called.')
     const token = localStorage.getItem(tokenName);
-    console.log('We have the token', token);
     if (token) {
       const tokenObj = JSON.parse(token);
 
-      const accessExpire = Date.now() - 1000;
+      const accessExpire = tokenObj["accessExpire"];
 
       if (!accessExpire || accessExpire < Date.now()) {
         // access token missing or expired.
@@ -75,13 +73,14 @@ export class UserService {
           if (promptSignIn) this.signIn();
         } else {
           const refreshToken = tokenObj["refresh_token"];
-          console.log('Refresh token...', refreshToken);
           this.getAuthTokens({ refreshToken }, callback);
         }
       } else {
         // access token not expired.
         callback?.();
       }
+    } else {
+      if (promptSignIn) this.signIn();
     }
   }
 
@@ -104,22 +103,19 @@ export class UserService {
       data: payload
      }).then((r) => {
       if (r?.status === 200 && r?.data) {
-        console.log('Token recieved.', JSON.stringify(r.data));
         this.setToken(tokenName, r.data);
         this.getProfileImg();
         callback?.();
       } else {
-        console.log('Request failed.', r?.status, r?.data);
+        // TODO: Better error handling in-app (toasts?)
+        console.error('Request failed.', r?.status, r?.data);
       }
     });
   }
 
   getProfileImg() {
     const token = localStorage.getItem(tokenName);
-    console.log('In get profile image....');
-    console.log(token);
     if (token) {
-      console.log('Getting profile image....');
       const data = JSON.parse(token) ?? {}
 
       const membershipId = data.membership_id ?? data["membership_id"];
