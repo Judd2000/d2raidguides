@@ -8,11 +8,12 @@ namespace raidguideserver.Controllers
   public class GetTokens : ControllerBase
   {
 
-    static Uri endpoint = new(Environment.GetEnvironmentVariable("D2RG_BUNGIE_TOKEN_ENDPOINT") ?? "https://example.com");
+    static readonly Uri endpoint = new(Environment.GetEnvironmentVariable("D2RG_BUNGIE_TOKEN_ENDPOINT") ?? "https://example.com");
 
-    private static HttpClient requestClient = new() { BaseAddress = endpoint };
+    private static readonly HttpClient requestClient = new() { BaseAddress = endpoint };
     [HttpPost]
-    public async Task<ActionResult<Token>> Post([FromBody] TokenRequest requestBody) {
+    public async Task<ActionResult<Token>> Post([FromBody] TokenRequest requestBody)
+    {
 
       if (string.IsNullOrEmpty(requestBody.AuthCode) && string.IsNullOrEmpty(requestBody.RefreshToken))
       {
@@ -50,8 +51,9 @@ namespace raidguideserver.Controllers
         using HttpResponseMessage response = await requestClient.SendAsync(tokenReq);
 
         string body = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode) {
-          Console.WriteLine($"Request failed with status {response.StatusCode}. Response: {body}");
+        if (!response.IsSuccessStatusCode)
+        {
+          Console.Error.WriteLine($"Request failed with status {response.StatusCode}. Response: {body}");
 
           return BadRequest(new
           {
@@ -68,7 +70,7 @@ namespace raidguideserver.Controllers
       }
       catch (HttpRequestException ex)
       {
-        Console.WriteLine($"System error: {ex}");
+        Console.Error.WriteLine($"System error: {ex}");
         return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
       }
     }
@@ -76,14 +78,173 @@ namespace raidguideserver.Controllers
 
   [Route("api/[controller]")]
   [ApiController]
-  public class GetUserData
+  public class GetData : ControllerBase
   {
 
-    [HttpGet]
-    public async Task<ActionResult<string>> WeewooWeewoo([FromQuery(Name = "membership_id")] string membershipId,
-      [FromQuery(Name = "access_token")] string accessToken)
+    
+    //private static readonly string[] allowedDomains = #
+    //{ 
+      // "dim.gg"
+      // "destinyitemmanager.com"
+      // "mobalytics..gg"
+      // "youtube.com"
+      // "youtu.be"
+      // "light.gg"
+   // }; 
+
+    //private bool IsValidBuildLink(string rl)
+    //{ 
+        //if (string.IsNullOrWhiteSpace(Url))
+          //return false; 
+          
+        //if (!Uri.tryCreate(url, UriKind.Absolute, out Uri uri))
+          //return false; 
+
+        //if (uri.Scheme != Uri.uriSchemeHttps)
+          //return false; 
+
+        //string host = uri.Host.ToLower();
+
+
+        //return allowedDomains.Any(d => host.Contains(d));
+        //}
+
+        // add to handle comments == 
+        // if (!IsValidBuildLink(comment.buildink))  
+        //{
+        //    return BadRequest("Only approved build links are allowed.");
+        //}
+    //}
+
+
+    private static Dictionary<uint, string> categoryHashToName = new()
     {
-      return "nothing";
+        { 20U, "Armor" },
+        { 1U, "Weapon" },
+        { 1043342778U, "Subclass Mods" }
+    };
+
+
+    static readonly Uri endpoint = new("https://www.bungie.net");
+
+    private static readonly HttpClient requestClient = new() { BaseAddress = endpoint };
+
+    private static readonly JsonSerializerOptions options = new()
+    {
+      PropertyNameCaseInsensitive = true
+    };
+
+    private static bool IsExoticArmor(JsonElement item)
+    {
+      // TODO: Check if 'armor' and check if inventory.tierTypeName is Exotic.
+      return true;
+    }
+
+    private static Dictionary<string, List<DataItem>> PetesItemJson(string itemBody)
+    {
+      Dictionary<string, List<DataItem>> items = new() {
+        { "Weapon", new List<DataItem>() },
+        { "Armor", new List<DataItem>() },
+        { "Subclass Mods", new List<DataItem>() }
+      };
+
+      Dictionary<string, JsonElement> itemDict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(itemBody);
+
+      foreach (JsonElement item in itemDict.Values)
+      {
+        if (item.TryGetProperty("itemCategoryHashes", out JsonElement categoriesArray)
+          && categoriesArray.ValueKind == JsonValueKind.Array)
+        {
+
+          foreach (JsonElement category in categoriesArray.EnumerateArray())
+          {
+
+            uint hash = category.GetUInt32();
+            if (category.ValueKind != JsonValueKind.Number ||
+              !categoryHashToName.ContainsKey(hash) ||
+              !IsExoticArmor(item))
+              continue;
+
+            DataItem newItem = new();
+
+            // Handle root properties
+            if (item.TryGetProperty("itemTypeDisplayName", out var itemType)) newItem.ItemType = itemType.GetString() ?? "";
+            if (item.TryGetProperty("flavorText", out var flavorText)) newItem.FlavorText = flavorText.GetString() ?? "";
+            if (item.TryGetProperty("hash", out var hashCode)) newItem.Hash = hashCode.GetUInt32();
+
+            // Handle nested display properties
+            if (item.TryGetProperty("displayProperties", out var displayProperties))
+            {
+              if (displayProperties.TryGetProperty("name", out var name)) newItem.Name = name.GetString() ?? "";
+              if (displayProperties.TryGetProperty("icon", out var iconUrl)) newItem.IconUrl = iconUrl.GetString() ?? "";
+              if (displayProperties.TryGetProperty("description", out var description)) newItem.Description = description.GetString() ?? "";
+            }
+
+            string itemCategory = categoryHashToName.GetValueOrDefault(hash);
+            newItem.ItemCategory = itemCategory;
+
+            // Add property
+            if (items.TryGetValue(itemCategory, out List<DataItem> itemList))
+            {
+              itemList.Add(newItem);
+            }
+          }
+        }
+      }
+      return items;
+    }
+
+    [HttpGet("manifestdata")]
+    public async Task<ActionResult<Dictionary<string, List<DataItem>>>> GetDestinyManifestData()
+    {
+
+      string manifestEndpoint = "/Platform/Destiny2/Manifest/";
+
+      using HttpRequestMessage manifestReq = new(HttpMethod.Get, manifestEndpoint);
+
+      manifestReq.Headers.Add("X-API-Key", Environment.GetEnvironmentVariable("D2RG_API_KEY"));
+
+      try
+      {
+        using HttpResponseMessage response = await requestClient.SendAsync(manifestReq);
+
+        string body = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+          Console.Error.WriteLine($"Request failed with status {response.StatusCode}. Response: {body}");
+
+          return BadRequest(new
+          {
+            message = "Failed to get destiny data",
+            statusCode = response.StatusCode,
+            statusLabel = response.StatusCode.ToString(),
+          });
+        }
+
+        ManifestData manifest = JsonSerializer.Deserialize<ManifestData>(body, options);
+
+
+        if (manifest?.response?.jsonWorldComponentContentPaths?.en?.destinyInventoryItemDefinition != null)
+        {
+          using HttpRequestMessage itemsReq = new(HttpMethod.Get, manifest.response.jsonWorldComponentContentPaths.en.destinyInventoryItemDefinition);
+
+          itemsReq.Headers.Add("X-API-Key", Environment.GetEnvironmentVariable("D2RG_API_KEY"));
+          using HttpResponseMessage itemsResponse = await requestClient.SendAsync(itemsReq);
+
+          string itemBody = await itemsResponse.Content.ReadAsStringAsync();
+
+          return PetesItemJson(itemBody);
+        }
+        else
+        {
+          return StatusCode(500, new { message = "An unexpected error occurred.", details = "Malformed manifest." });
+        }
+      }
+      catch (HttpRequestException ex)
+      {
+        Console.Error.WriteLine($"System error: {ex}");
+        return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+      }
     }
   }
 }
