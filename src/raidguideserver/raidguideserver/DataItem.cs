@@ -12,7 +12,7 @@ namespace raidguideserver
 
     public override string ToString()
     {
-      return $"[\n\tname: {this.Name }\n\t itemType: {this.itemType }\n\t itemCategory: {this.itemCategory }\n\t description: {this.description }\n\t flavorText: {this.flavorText }\n\t iconUrl: {this.iconUrl }\n\t hash: {this.hash }\n]";
+      return $"[\n\tname: {this.Name }\n\t itemType: {this.ItemType }\n\t itemCategory: {this.ItemCategory }\n\t description: {this.Description }\n\t flavorText: {this.FlavorText }\n\t iconUrl: {this.IconUrl }\n\t hash: {this.Hash }\n]";
     }
   }
 }

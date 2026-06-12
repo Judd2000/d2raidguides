@@ -6,6 +6,8 @@
       <span class="p-1 mb-1 active:bg-gray-400 active:rounded-sm active:text-blue-500 text-xs" routerLink="">Home</span>
       <span class="p-1 mb-1 active:bg-gray-400 active:rounded-sm active:text-blue-500 text-xs"
         routerLink="/acknowledgements">Acknowledgements</span>
+      <span (click)="dataService.populateManifest()">Set</span>
+      <span (click)="dataService.getManifest()">Get</span>
     </div>
 
     <div cdkOverlayOrigin #origin="cdkOverlayOrigin" (click)="isOpen = !isOpen">

@@ -5,6 +5,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { InAppBrowser, DefaultSystemBrowserOptions } from '@capacitor/inappbrowser';
 import { authUrl, clientId, key, tokenName } from '../../constants';
 import { UserService } from '../../services/user.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ import { UserService } from '../../services/user.service';
 })
 export class Header {
 
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, public dataService: DataService) {}
 
   isOpen = false;
 

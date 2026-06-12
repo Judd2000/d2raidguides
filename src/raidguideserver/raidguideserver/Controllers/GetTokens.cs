@@ -116,10 +116,11 @@ namespace raidguideserver.Controllers
         //}
     //}
 
+    private static readonly uint ArmorHash = 20U;
 
     private static Dictionary<uint, string> categoryHashToName = new()
     {
-        { 20U, "Armor" },
+        { ArmorHash, "Armor" },
         { 1U, "Weapon" },
         { 1043342778U, "Subclass Mods" }
     };
@@ -136,8 +137,10 @@ namespace raidguideserver.Controllers
 
     private static bool IsExoticArmor(JsonElement item)
     {
-      // TODO: Check if 'armor' and check if inventory.tierTypeName is Exotic.
-      return true;
+      return item.TryGetProperty("inventory", out JsonElement inventoryInfo) && 
+        inventoryInfo.ValueKind == JsonValueKind.Object &&
+        inventoryInfo.TryGetProperty("tierTypeName", out JsonElement tier) &&
+        tier.GetString() == "Exotic";
     }
 
     private static Dictionary<string, List<DataItem>> PetesItemJson(string itemBody)
@@ -148,7 +151,7 @@ namespace raidguideserver.Controllers
         { "Subclass Mods", new List<DataItem>() }
       };
 
-      Dictionary<string, JsonElement> itemDict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(itemBody);
+      Dictionary<string, JsonElement> itemDict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(itemBody) ?? [];
 
       foreach (JsonElement item in itemDict.Values)
       {
@@ -162,7 +165,7 @@ namespace raidguideserver.Controllers
             uint hash = category.GetUInt32();
             if (category.ValueKind != JsonValueKind.Number ||
               !categoryHashToName.ContainsKey(hash) ||
-              !IsExoticArmor(item))
+              (hash == ArmorHash && !IsExoticArmor(item)))
               continue;
 
             DataItem newItem = new();
@@ -187,6 +190,7 @@ namespace raidguideserver.Controllers
             if (items.TryGetValue(itemCategory, out List<DataItem> itemList))
             {
               itemList.Add(newItem);
+              continue;
             }
           }
         }
@@ -221,7 +225,7 @@ namespace raidguideserver.Controllers
           });
         }
 
-        ManifestData manifest = JsonSerializer.Deserialize<ManifestData>(body, options);
+        ManifestData manifest = JsonSerializer.Deserialize<ManifestData>(body, options) ?? new();
 
 
         if (manifest?.response?.jsonWorldComponentContentPaths?.en?.destinyInventoryItemDefinition != null)
