@@ -8,7 +8,8 @@ namespace raidguideserver.Controllers
   public class GetTokens : ControllerBase
   {
 
-    static readonly Uri endpoint = new(Environment.GetEnvironmentVariable("D2RG_BUNGIE_TOKEN_ENDPOINT") ?? "https://example.com");
+    static readonly Uri endpoint = new(Environment.GetEnvironmentVariable("D2RG_BUNGIE_TOKEN_ENDPOINT")
+      ?? throw new InvalidOperationException("Environment variable 'D2RG_BUNGIE_TOKEN_ENDPOINT' is missing or not set."));
 
     private static readonly HttpClient requestClient = new() { BaseAddress = endpoint };
     [HttpPost]
@@ -20,9 +21,9 @@ namespace raidguideserver.Controllers
         return BadRequest("Either auth_code or refresh_token must be provided.");
       }
 
-      string clientId = Environment.GetEnvironmentVariable("D2RG_CLIENT_ID") ?? "";
+      string clientId = Environment.GetEnvironmentVariable("D2RG_CLIENT_ID") ?? throw new InvalidOperationException("Environment variable 'D2RG_CLIENT_ID' is missing or not set.");
 
-      string clientSecret = Environment.GetEnvironmentVariable("D2RG_CLIENT_SECRET") ?? "";
+      string clientSecret = Environment.GetEnvironmentVariable("D2RG_CLIENT_SECRET") ?? throw new InvalidOperationException("Environment variable 'D2RG_CLIENT_SECRET' is missing or not set.");
 
       Dictionary<string, string> keyValues = new() {
         { "client_id", clientId },
@@ -42,7 +43,7 @@ namespace raidguideserver.Controllers
 
       using HttpRequestMessage tokenReq = new(HttpMethod.Post, endpoint);
 
-      tokenReq.Headers.Add("X-API-Key", Environment.GetEnvironmentVariable("D2RG_API_KEY"));
+      tokenReq.Headers.Add("X-API-Key", Environment.GetEnvironmentVariable("D2RG_API_KEY") ?? throw new InvalidOperationException("Environment variable 'D2RG_API_KEY' is missing or not set."));
 
       tokenReq.Content = new FormUrlEncodedContent(keyValues);
 
@@ -118,7 +119,7 @@ namespace raidguideserver.Controllers
 
     private static readonly uint ArmorHash = 20U;
 
-    private static string CommonBungieEndpoint = "https://www.bungie.net";
+    private static readonly string CommonBungieEndpoint = "https://www.bungie.net";
 
     private static Dictionary<uint, string> categoryHashToName = new()
     {
@@ -174,16 +175,16 @@ namespace raidguideserver.Controllers
             DataItem newItem = new();
 
             // Handle root properties
-            if (item.TryGetProperty("itemTypeDisplayName", out var itemType)) newItem.ItemType = itemType.GetString() ?? "";
-            if (item.TryGetProperty("flavorText", out var flavorText)) newItem.FlavorText = flavorText.GetString() ?? "";
+            if (item.TryGetProperty("itemTypeDisplayName", out var itemType) && itemType.GetString() is string itemTypeStr) newItem.ItemType = itemTypeStr;
+            if (item.TryGetProperty("flavorText", out var flavorText) && flavorText.GetString() is string flavorTextStr) newItem.FlavorText = flavorTextStr;
             if (item.TryGetProperty("hash", out var hashCode)) newItem.Hash = hashCode.GetUInt32();
 
             // Handle nested display properties
             if (item.TryGetProperty("displayProperties", out var displayProperties))
             {
-              if (displayProperties.TryGetProperty("name", out var name)) newItem.Name = name.GetString() ?? "";
+              if (displayProperties.TryGetProperty("name", out var name) && name.GetString() is string itemName) newItem.Name = itemName;
               if (displayProperties.TryGetProperty("icon", out var icon) && icon.GetString() is string iconUrl) newItem.IconUrl = $"{CommonBungieEndpoint}{iconUrl}";
-              if (displayProperties.TryGetProperty("description", out var description)) newItem.Description = description.GetString() ?? "";
+              if (displayProperties.TryGetProperty("description", out var description) && description.GetString() is string itemDescription) newItem.Description = itemDescription;
             }
 
             string itemCategory = categoryHashToName.GetValueOrDefault(hash) ?? "";
@@ -230,7 +231,7 @@ namespace raidguideserver.Controllers
 
         ManifestData manifest = JsonSerializer.Deserialize<ManifestData>(body, options) ?? new();
 
-
+         
         if (manifest?.Response?.JsonWorldComponentContentPaths?.En?.DestinyInventoryItemDefinition != null)
         {
           using HttpRequestMessage itemsReq = new(HttpMethod.Get, manifest.Response.JsonWorldComponentContentPaths.En.DestinyInventoryItemDefinition);
