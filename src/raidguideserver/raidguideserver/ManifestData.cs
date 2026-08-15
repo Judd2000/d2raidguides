@@ -4,20 +4,20 @@ namespace raidguideserver
   //Response.jsonWorldComponentContentPaths.en.DestinyInventoryItemDefinition
   public class ManifestData
   {
-    public ManifestResponse response { get; set; }
+    public ManifestResponse? Response { get; set; }
   }
 
   public class ManifestResponse {
-    public ContentPaths jsonWorldComponentContentPaths { get; set; }
+    public ContentPaths? JsonWorldComponentContentPaths { get; set; }
   }
 
   public class ContentPaths {
-    public EnglishDefs en { get; set; }
+    public EnglishDefs? En { get; set; }
   }
 
   public class EnglishDefs {
-    public string destinyInventoryItemDefinition { get; set; }
+    public string? DestinyInventoryItemDefinition { get; set; }
 
-    public string destinySandboxPerkDefinition { get; set; }
+    public string? DestinySandboxPerkDefinition { get; set; }
   }
 }

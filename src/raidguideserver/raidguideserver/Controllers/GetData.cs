@@ -118,6 +118,8 @@ namespace raidguideserver.Controllers
 
     private static readonly uint ArmorHash = 20U;
 
+    private static string CommonBungieEndpoint = "https://www.bungie.net";
+
     private static Dictionary<uint, string> categoryHashToName = new()
     {
         { ArmorHash, "Armor" },
@@ -126,7 +128,7 @@ namespace raidguideserver.Controllers
     };
 
 
-    static readonly Uri endpoint = new("https://www.bungie.net");
+    static readonly Uri endpoint = new(CommonBungieEndpoint);
 
     private static readonly HttpClient requestClient = new() { BaseAddress = endpoint };
 
@@ -148,7 +150,8 @@ namespace raidguideserver.Controllers
       Dictionary<string, List<DataItem>> items = new() {
         { "Weapon", new List<DataItem>() },
         { "Armor", new List<DataItem>() },
-        { "Subclass Mods", new List<DataItem>() }
+        { "Subclass Mods", new List<DataItem>() },
+        { "Set Bonuses", new List<DataItem>() }
       };
 
       Dictionary<string, JsonElement> itemDict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(itemBody) ?? [];
@@ -179,15 +182,15 @@ namespace raidguideserver.Controllers
             if (item.TryGetProperty("displayProperties", out var displayProperties))
             {
               if (displayProperties.TryGetProperty("name", out var name)) newItem.Name = name.GetString() ?? "";
-              if (displayProperties.TryGetProperty("icon", out var iconUrl)) newItem.IconUrl = iconUrl.GetString() ?? "";
+              if (displayProperties.TryGetProperty("icon", out var icon) && icon.GetString() is string iconUrl) newItem.IconUrl = $"{CommonBungieEndpoint}{iconUrl}";
               if (displayProperties.TryGetProperty("description", out var description)) newItem.Description = description.GetString() ?? "";
             }
 
-            string itemCategory = categoryHashToName.GetValueOrDefault(hash);
+            string itemCategory = categoryHashToName.GetValueOrDefault(hash) ?? "";
             newItem.ItemCategory = itemCategory;
 
             // Add property
-            if (items.TryGetValue(itemCategory, out List<DataItem> itemList))
+            if (items.TryGetValue(itemCategory, out List<DataItem>? itemList))
             {
               itemList.Add(newItem);
               continue;
@@ -228,9 +231,9 @@ namespace raidguideserver.Controllers
         ManifestData manifest = JsonSerializer.Deserialize<ManifestData>(body, options) ?? new();
 
 
-        if (manifest?.response?.jsonWorldComponentContentPaths?.en?.destinyInventoryItemDefinition != null)
+        if (manifest?.Response?.JsonWorldComponentContentPaths?.En?.DestinyInventoryItemDefinition != null)
         {
-          using HttpRequestMessage itemsReq = new(HttpMethod.Get, manifest.response.jsonWorldComponentContentPaths.en.destinyInventoryItemDefinition);
+          using HttpRequestMessage itemsReq = new(HttpMethod.Get, manifest.Response.JsonWorldComponentContentPaths.En.DestinyInventoryItemDefinition);
 
           itemsReq.Headers.Add("X-API-Key", Environment.GetEnvironmentVariable("D2RG_API_KEY"));
           using HttpResponseMessage itemsResponse = await requestClient.SendAsync(itemsReq);
