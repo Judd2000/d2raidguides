@@ -8,7 +8,15 @@ namespace raidguideserver
     public string Description { get; set; } = "";
     public string ItemType { get; set; } = "";
     public string FlavorText { get; set; } = "";
+    public bool isTwoPieceArmorSet { get; set; } = false;
     public uint Hash { get; set; }
+
+    public DataItem() { }
+
+    public DataItem(bool isTwoPiece)
+    {
+      this.isTwoPieceArmorSet = isTwoPiece;
+    }
 
     public override string ToString()
     {
