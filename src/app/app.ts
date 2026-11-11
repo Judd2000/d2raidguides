@@ -1,11 +1,9 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, NgZone, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { MatInputModule } from '@angular/material/input';
 import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
-import { serverUrl, tokenName } from './constants';
-import { CapacitorHttp } from '@capacitor/core';
 import { UserService } from './services/user.service';
 import { InAppBrowser } from '@capacitor/inappbrowser';
 import { DataService } from './services/data.service';
@@ -24,7 +22,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private dataService: DataService
+    private dataService: DataService,
+    private zone: NgZone
   ) { }
 
   protected readonly title = signal('d2raidguides');
@@ -36,20 +35,26 @@ export class AppComponent implements OnInit {
 
     
     InAppBrowser.addListener('browserPageLoaded', () => {
-      if (this.userService.signingOut()) {
-        this.userService.clearUser();
-      }
-    })
+      this.zone.run(() => {
+        if (this.userService.signingOut()) {
+          this.userService.clearUser();
+        }
+      });
+      
+    });
 
     App.addListener('appUrlOpen', (event) => {
-      const url = new URL(event.url);
+      this.zone.run(() => {
+        const url = new URL(event.url);
 
-      if (url.host === 'callback' || url.pathname.includes('callback')) {
-        Browser.close();
-        
-        const authCode = url.searchParams.get('code') ?? '';
-        this.userService.getAuthTokens({ authCode })
-      }
-    })
+        if (url.host === 'callback' || url.pathname.includes('callback')) {
+          Browser.close();
+          
+          const authCode = url.searchParams.get('code') ?? '';
+          this.userService.getAuthTokens({ authCode })
+        }
+      });
+
+    });
   }
 }

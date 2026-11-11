@@ -1,15 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Raid_Dungeon, raidDungeons } from '../../raid-models/raid-models';
 import { StarRatingModule } from 'angular-star-rating';
 import { MatButton } from '@angular/material/button';
 import { Encounterlist } from '../encounter-list/encounterlist';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-raid-dungeon-view',
   imports: [
     StarRatingModule,
-    Encounterlist
+    Encounterlist,
+    MatIconModule,
+    RouterLink
   ],
   templateUrl: './raid-dungeon-view.html',
   styleUrl: './raid-dungeon-view.css',
