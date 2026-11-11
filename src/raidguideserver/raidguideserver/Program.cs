@@ -10,7 +10,7 @@ builder.Services.AddCors((options) =>
 {
   options.AddPolicy("MobileAppPolicy", (policy) =>
   {
-    policy.WithOrigins("d2raidguides://localhost");
+    policy.WithOrigins("d2raidguides://");
   });
 });
 

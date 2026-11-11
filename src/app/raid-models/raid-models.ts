@@ -399,7 +399,72 @@ export const raids: Raid_Dungeon[] = [
         encounterName: "Koregos, Fractured in Time",
         path: "koregos_f",
         imgUrl: "/raids/dp/koregos_f.jpg"
+      }
+    ]
+  },
+  {
+    id: 9,
+    name: "The Pantheon: Calus Resplendent",
+    expansion: "Monument of Triumph",
+    path: "p-calus",
+    imgUrl: "/raids/pantheon/calus-resplendent.jpg",
+    colorName: "border-slate-400",
+    encounters: [
+      {
+        encounterName: "Argos, Planetary Core",
+        path: "argos",
+        imgUrl: "/raids/pantheon/argos.jpg"
       },
+      {
+        encounterName: "Gahlran, Sorrow-Bearer",
+        path: "gahlran",
+        imgUrl: "/raids/pantheon/gahlran.jpg"
+      },
+      {
+        encounterName: "Calus",
+        path: "calus",
+        imgUrl: "/raids/pantheon/calus.jpg"
+      }
+    ]
+  },
+  {
+    id: 9,
+    name: "The Pantheon: Morgeth Surpassing",
+    expansion: "Monument of Triumph",
+    path: "p-morgeth",
+    imgUrl: "/raids/pantheon/morgeth-surpassing.jpg",
+    colorName: "border-slate-400",
+    encounters: [
+      {
+        encounterName: "The Warpriest",
+        path: "warpriest",
+        imgUrl: "/raids/pantheon/warpriest.jpg"
+      },
+      {
+        encounterName: "The Consecrated Mind",
+        path: "consecrated",
+        imgUrl: "/raids/pantheon/consecrated.jpg"
+      },
+      {
+        encounterName: "Morgeth Surpassing",
+        path: "morgeth-surpassing",
+        imgUrl: "/raids/pantheon/morgeth.jpg"
+      }
+    ]
+  },
+  {
+    id: 9,
+    name: "The Pantheon: Insurrection Prime Revolutionary",
+    expansion: "Monument of Triumph",
+    path: "p-insurrection",
+    imgUrl: "/raids/pantheon/insurrection-prime.jpg",
+    colorName: "border-slate-400",
+    encounters: [
+      {
+        encounterName: "Insurrection Prime",
+        path: "insurrection",
+        imgUrl: "/raids/pantheon/insurrection.jpg"
+      }
     ]
   }
 ];

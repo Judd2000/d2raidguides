@@ -132,6 +132,13 @@ export class UsedAssets {
     'https://gamerant.com/destiny-2-equilibrium-dungeon-guide-all-encounters-harvester-harrow-sere/',
     'https://thegamepost.com/destiny-2-equilibrium-dungeon-guide/',
     'https://www.destinypedia.com/Dredgen_Sere',
-    'https://www.destinypedia.com/Harrow,_Dredgen-Apprentice'
+    'https://www.destinypedia.com/Harrow,_Dredgen-Apprentice',
+    'https://skycoach.gg/blog/destiny/articles/morgeth-pantheon-guide',
+    'https://skycoach.gg/blog/destiny/articles/consecrated-mind-pantheon-guide',
+    'https://skycoach.gg/blog/destiny/articles/warpriest-pantheon-guide',
+    'https://skycoach.gg/blog/destiny/articles/gahlran-boss-guide',
+    'https://grindout.com/destiny-2/guides/calus-resplendent',
+    'https://gamerant.com/destiny-2-pantheon-bosses-loot-table-god-rolls/',
+    'https://www.reddit.com/r/destiny2/comments/1uacrj5/so_what_exactly_is_pantheon/'
   ];
 }

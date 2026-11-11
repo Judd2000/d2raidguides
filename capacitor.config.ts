@@ -5,7 +5,8 @@ const config: CapacitorConfig = {
   appName: 'd2raidguides',
   webDir: 'dist/d2raidguides/browser',
   server: {
-    androidScheme: "d2raidguides"
+    androidScheme: 'https',
+    hostname: 'localhost'
   },
   plugins: {
     CapacitorCookies: {
